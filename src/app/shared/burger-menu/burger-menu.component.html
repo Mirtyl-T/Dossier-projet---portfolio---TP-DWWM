@@ -1,0 +1,52 @@
+<div class="burger-menu-container">
+  <button 
+    class="burger-button"
+    [class.active]="isOpen"
+    (click)="toggleMenu()"
+    type="button"
+    aria-label="Menu de navigation"
+    [attr.aria-expanded]="isOpen">
+    
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+  </button>
+
+  <div 
+    class="menu-overlay"
+    [class.active]="isOpen"
+    (click)="closeMenu()">
+  </div>
+
+  <nav 
+    class="burger-nav"
+    [class.active]="isOpen">
+    
+    <div class="menu-header">
+      <h2>ADRIEN KAHN</h2>
+      <button 
+        class="close-button"
+        (click)="closeMenu()"
+        type="button"
+        aria-label="Fermer le menu">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <ul class="menu-list">
+      @for (item of menuItems; track $index) {
+        <li 
+          class="menu-item"
+          [style.animation-delay]="($index * 0.1) + 's'">
+          
+          <a 
+            href="#"
+            class="menu-link"
+            (click)="navigateAndClose(item.route); $event.preventDefault()">
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>

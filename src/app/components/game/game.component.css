@@ -1,0 +1,251 @@
+.game-container {
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: aliceblue;
+    padding: 2rem 0;
+    padding-bottom: 120px;
+}
+
+.game-title {
+    font-family: "Karla", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 5vw;
+    font-weight: 800;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2vw;
+    padding-left: 25%;
+    color: aliceblue;
+}
+
+.game-subtitle {
+    font-family: "Karla", sans-serif;
+    font-size: 3vw;
+    text-align: center;
+    margin: 2rem 0;
+    color: aliceblue;
+}
+
+.character-selection {
+    margin: 2rem 0;
+}
+
+.personnage-menu {
+    display: flex;
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 10%;
+    gap: 2rem;
+}
+
+.personnage-menu img {
+    object-fit: contain;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.personnage-menu img:hover {
+    transform: scale(1.05);
+}
+
+.personnage {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.character-btn {
+    margin-top: 2rem;
+    width: 18vw;
+    min-width: 150px;
+    background-image: url('/assets/images/wood-texture.webp');
+    background-color: #3b2a1a;
+    background-size: cover;
+    border: 3px solid transparent;
+    font-size: 2vw;
+    border-radius: 1rem;
+    color: #3b2a1a;
+    font-weight: bold;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.character-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    border-color: #d4af37;
+}
+
+.character-btn.selected {
+    border-color: #d4af37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
+}
+
+.character-description {
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+.game-area {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.game-board {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.selected-character {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-controls {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.game-btn {
+    padding: 12px 24px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(45deg, #2196F3, #1976D2);
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.game-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #1976D2, #1565C0);
+}
+
+.game-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(51, 51, 51);
+    padding: 1rem 0;
+}
+
+#main-content {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+}
+
+
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 8vw;
+        padding-left: 0;
+        text-align: center;
+    }
+    
+    .game-subtitle {
+        font-size: 5vw;
+    }
+    
+    .personnage-menu {
+        width: 90%;
+        margin-left: 5%;
+        gap: 1rem;
+    }
+    
+    .character-btn {
+        width: 35vw;
+        font-size: 3vw;
+        min-width: 120px;
+    }
+    
+    .character-description {
+        font-size: 0.9rem;
+    }
+    
+    .game-board {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .personnage-menu {
+        flex-direction: column;
+        width: 80%;
+        margin-left: 10%;
+        align-items: center;
+    }
+    
+    .personnage {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .character-btn {
+        width: 60vw;
+        font-size: 4vw;
+    }
+    
+    .game-title {
+        font-size: 10vw;
+    }
+    
+    .game-container {
+        padding-bottom: 180px;
+    }
+}
+
+@media (max-width: 340px) {
+    .character-btn {
+        width: 70vw;
+        font-size: 5vw;
+    }
+}
