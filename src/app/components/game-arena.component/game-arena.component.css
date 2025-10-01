@@ -1,0 +1,312 @@
+body {
+    background: linear-gradient(135deg, #0f0f0f 0%, #2c1810 100%);
+    margin-top: 5rem;
+}
+
+.arena-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.arena-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.arena-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #d4af37;
+    margin: 0;
+}
+
+.battle-zone {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    min-height: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 3rem;
+}
+
+.personnage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+}
+
+.player-character {
+    order: 1; /* À gauche */
+}
+
+.computer-character {
+    order: 2; /* À droite */
+}
+
+
+.defense, .attack {
+    position: relative;
+}
+
+.attack-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fff;
+}
+
+.attack-panel h3 {
+    color: #d4af37;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.attack-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.attack-btn {
+    background: #3b2a1a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    min-width: 160px;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: "Karla", sans-serif;
+}
+
+.attack-btn:hover:not(.disabled) {
+    border-color: #d4af37;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 15px rgba(212,175,55,0.4);
+    filter: brightness(1.1);
+}
+
+.attack-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(70%);
+}
+
+.attack-name {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: #d4af37;
+}
+
+.attack-cost {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-right: 0.5rem;
+}
+
+.attack-damage {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: #f44336;
+    font-weight: bold;
+}
+
+.attack-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: #ccc;
+    margin-top: 0.3rem;
+}
+
+
+
+.battle-log {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: #fff;
+}
+
+.battle-log h3 {
+    color: #d4af37;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.log-container {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.log-message {
+    font-size: 0.9rem;
+    margin: 0.4rem 0;
+    padding: 0.4rem 0.6rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    border-left: 3px solid #d4af37;
+}
+
+.personnage img {
+    width: 280px;
+    height: 350px;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.personnage img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.defense img {
+    border: 3px solid rgba(33, 150, 243, 0.5);
+}
+
+.attack img {
+    border: 3px solid rgba(244, 67, 54, 0.5);
+}
+
+.personnage::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 20px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.control-panel {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.game-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 12px 24px;
+    background: #3b2a1a;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    color: #d4af37;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Karla", sans-serif;
+    font-size: 1rem;
+    filter: brightness(0.7);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.control-btn:hover {
+    border-color: #d4af37;
+    filter: brightness(1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .personnage img {
+        width: 25vw;
+        min-width: 120px;
+        max-width: 200px;
+    }
+    .arena-container {
+        padding: 1rem;
+    }
+    
+    .arena-title {
+        font-size: 2.5rem;
+    }
+    
+    .battle-zone {
+        flex-direction: row;
+        padding: 2rem;
+        gap: 2rem;
+        min-height: auto;
+    }
+    
+    .control-panel {
+        padding: 1.5rem;
+    }
+    
+    .game-controls {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .control-btn {
+        width: 200px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .arena-title {
+        font-size: 2rem;
+    }
+    
+    .battle-zone {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .personnage img {
+        width: 40vw;
+        min-width: 100px;
+        max-width: 150px;
+    }
+    
+    .control-btn {
+        width: 100%;
+        max-width: 250px;
+        padding: 15px 20px;
+    }
+}
