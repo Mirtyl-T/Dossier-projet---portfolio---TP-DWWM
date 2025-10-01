@@ -58,6 +58,7 @@
     "@types/jasmine": "~5.1.0",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^24.6.0",
+    "angular-cli-ghpages": "^2.0.3",
     "concurrently": "^8.2.2",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",

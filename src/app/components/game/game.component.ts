@@ -86,7 +86,46 @@ export class GameComponent implements OnInit {
 
     const onClickSubmitButton = (event: any) => {
       event.preventDefault();
-      // Utiliser le Router Angular au lieu de window.location.href
+      
+      // 🔥 RÉCUPÉRER les valeurs du formulaire
+      const playerNameInput = document.querySelector('input[name="nom"]') as HTMLInputElement;
+      const playerUsernameInput = document.querySelector('input[name="username"]') as HTMLInputElement;
+      const playerEmailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
+      const playerAvisInput = document.querySelector('textarea[name="avis"]') as HTMLTextAreaElement;
+      
+      // Validation des champs obligatoires
+      if (!playerNameInput?.value || !playerUsernameInput?.value || !playerEmailInput?.value) {
+        alert('Veuillez remplir tous les champs obligatoires (Nom, Pseudo, Email) !');
+        return;
+      }
+
+      // Créer l'objet de données joueur
+      const playerData = {
+        nom: playerNameInput.value.trim(),
+        username: playerUsernameInput.value.trim(),
+        email: playerEmailInput.value.trim(),
+        avis: playerAvisInput?.value?.trim() || '',
+        isExisting: false // Nouveau joueur par défaut
+      };
+
+      // 🔥 SAUVEGARDER dans sessionStorage (pour GameEndService)
+      sessionStorage.setItem('playerData', JSON.stringify(playerData));
+      console.log('✅ Données joueur sauvegardées:', playerData);
+
+      // Vérifier que les personnages sont bien sélectionnés
+      console.log('✅ Personnages sélectionnés:', {
+        defense: this.selectedDefenseCharacter?.name,
+        attack: this.selectedAttackCharacter?.name
+      });
+
+      // Log complet avant navigation
+      console.log('🎮 Données complètes avant navigation:', {
+        playerData: sessionStorage.getItem('playerData'),
+        defense: this.selectedDefenseCharacter?.name,
+        attack: this.selectedAttackCharacter?.name
+      });
+      
+      // Navigation vers l'arène
       this.router.navigate(['/app-game-arena']);
     }
 
