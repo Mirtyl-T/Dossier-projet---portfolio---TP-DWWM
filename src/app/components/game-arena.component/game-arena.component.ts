@@ -107,22 +107,44 @@ export class GameArenaComponent implements OnInit {
 
   async ngOnInit() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // Vérifier si des données joueur existent
+=======
+    console.log('🏟️ Initialisation de l\'arène');
+    
+    // 🔥 VÉRIFIER si des données joueur existent
+>>>>>>> master
     if (!this.gameEndService.hasPlayerData()) {
-      console.warn('Aucune donnée joueur - redirection formulaire');
-      alert('Veuillez d\'abord remplir le formulaire !');
-      this.router.navigate(['/formulaire']);
+      console.error('❌ Aucune donnée joueur trouvée dans sessionStorage');
+      console.log('📝 Contenu sessionStorage:', sessionStorage.getItem('playerData'));
+      alert('Veuillez d\'abord remplir le formulaire de sélection !');
+      this.router.navigate(['/app-game']);
       return;
     }
 
     // Récupérer les données temporaires
     this.playerData = this.gameEndService.getPlayerData();
-    console.log('Joueur en attente:', this.playerData.username);
+    console.log('✅ Joueur récupéré:', this.playerData);
+    console.log('👤 Pseudo:', this.playerData.username);
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
+    // Charger les personnages
 >>>>>>> master
     await this.loadSelectedCharacters();
+    
+    // Vérifier que les personnages sont bien chargés
+    if (!this.defenseCharacter || !this.attackCharacter) {
+      console.error('❌ Personnages non chargés correctement');
+      alert('Erreur: Personnages non trouvés. Retour à la sélection.');
+      this.router.navigate(['/app-game']);
+      return;
+    }
+    
     this.updateAvailableAttacks();
+    console.log('✅ Arène initialisée avec succès');
   }
 
   /**
@@ -141,13 +163,14 @@ export class GameArenaComponent implements OnInit {
 >>>>>>> master
     this.availableAttacks = [...specificAttacks, ...this.commonAttacks];
     
-    console.log('Attaques disponibles pour', this.attackCharacter.name, ':', this.availableAttacks);
+    console.log('⚔️ Attaques disponibles pour', this.attackCharacter.name, ':', this.availableAttacks);
   }
 
   /**
    * Récupère les personnages choisis
    */
   async loadSelectedCharacters() {
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Récupérer les personnages depuis le service
     const defense = await this.characterSelectionService.getDefenseCharacter();
@@ -157,6 +180,15 @@ export class GameArenaComponent implements OnInit {
 =======
     const defense = await this.characterSelectionService.getDefenseCharacter();
     const attack = await this.characterSelectionService.getAttackCharacter();
+
+>>>>>>> master
+=======
+    console.log('🎭 Chargement des personnages...');
+    
+    const defense = await this.characterSelectionService.getDefenseCharacter();
+    const attack = await this.characterSelectionService.getAttackCharacter();
+
+    console.log('📥 Personnages reçus du service:', { defense, attack });
 
 >>>>>>> master
     if (defense) {
@@ -169,6 +201,9 @@ export class GameArenaComponent implements OnInit {
         defense.name,
         defense.imageSource
       );
+      console.log('✅ Personnage de défense créé:', this.defenseCharacter.name);
+    } else {
+      console.error('❌ Personnage de défense manquant');
     }
 
     if (attack) {
@@ -181,14 +216,14 @@ export class GameArenaComponent implements OnInit {
         attack.name,
         attack.imageSource
       );
+      console.log('✅ Personnage d\'attaque créé:', this.attackCharacter.name);
+    } else {
+      console.error('❌ Personnage d\'attaque manquant');
     }
 
-    console.log('Personnage de défense:', this.defenseCharacter);
-    console.log('Personnage d\'attaque:', this.attackCharacter);
-
     if (!this.defenseCharacter || !this.attackCharacter) {
-      console.error('Erreur: Un ou plusieurs personnages n\'ont pas été sélectionnés');
-      this.addToBattleLog('Erreur: Personnages manquants');
+      console.error('❌ ERREUR: Un ou plusieurs personnages n\'ont pas été sélectionnés');
+      this.addToBattleLog('❌ Erreur: Personnages manquants');
     }
   }
 
@@ -214,8 +249,12 @@ export class GameArenaComponent implements OnInit {
     this.damageReceived = 0;
     this.attacksUsed = 0;
     
+<<<<<<< HEAD
 >>>>>>> master
     this.addToBattleLog('La bataille commence!');
+=======
+    this.addToBattleLog('⚔️ La bataille commence!');
+>>>>>>> master
     this.addToBattleLog(`${this.attackCharacter.name} VS ${this.defenseCharacter.name}`);
     setTimeout(() => this.computerTurn(), 1000);
   }
@@ -532,14 +571,14 @@ export class GameArenaComponent implements OnInit {
       isGameOver = true;
       playerWon = false;
       this.winner = this.defenseCharacter.name;
-      this.addToBattleLog(`${this.winner} a gagné!`);
+      this.addToBattleLog(`🏆 ${this.winner} a gagné!`);
     }
 
     if (this.defenseCharacter.PV <= 0) {
       isGameOver = true;
       playerWon = true;
       this.winner = this.attackCharacter.name;
-      this.addToBattleLog(`${this.winner} a gagné!`);
+      this.addToBattleLog(`🏆 ${this.winner} a gagné!`);
     }
 
     if (isGameOver) {
@@ -549,11 +588,11 @@ export class GameArenaComponent implements OnInit {
       const finalScore = this.calculateScore(playerWon);
       
       this.addToBattleLog('-------------------');
-      this.addToBattleLog(`Score final: ${finalScore} points`);
-      this.addToBattleLog(`Dégâts infligés: ${this.damageDealt}`);
-      this.addToBattleLog(`Dégâts reçus: ${this.damageReceived}`);
+      this.addToBattleLog(`💯 Score final: ${finalScore} points`);
+      this.addToBattleLog(`⚔️ Dégâts infligés: ${this.damageDealt}`);
+      this.addToBattleLog(`🛡️ Dégâts reçus: ${this.damageReceived}`);
       
-      console.log('Fin de partie:', { 
+      console.log('🎮 Fin de partie:', { 
         won: playerWon, 
         score: finalScore,
         character: this.attackCharacter.name 
@@ -561,18 +600,20 @@ export class GameArenaComponent implements OnInit {
 
       // SAUVEGARDER LE JOUEUR AVEC SES RÉSULTATS
       try {
+        console.log('💾 Tentative de sauvegarde...');
+        
         await this.gameEndService.saveGameResult({
           won: playerWon,
           scoreEarned: finalScore,
           selectedCharacter: this.attackCharacter.name
         });
 
-        this.addToBattleLog('Résultats sauvegardés !');
-        console.log('Résultats sauvegardés avec succès');
+        this.addToBattleLog('✅ Résultats sauvegardés !');
+        console.log('✅ Résultats sauvegardés avec succès');
 
       } catch (error: any) {
-        console.error('Erreur sauvegarde:', error);
-        this.addToBattleLog('Erreur lors de la sauvegarde...');
+        console.error('❌ Erreur sauvegarde:', error);
+        this.addToBattleLog('❌ Erreur lors de la sauvegarde...');
         alert(`Erreur: ${error.message}`);
       }
 
@@ -627,7 +668,7 @@ export class GameArenaComponent implements OnInit {
    * Met le jeu en pause
    */
   pauseGame() {
-    this.addToBattleLog('Jeu en pause');
+    this.addToBattleLog('⏸️ Jeu en pause');
   }
 
   /**
@@ -652,7 +693,7 @@ export class GameArenaComponent implements OnInit {
       this.gameEndService.clearPlayerData();
     }
 
-    console.log('Quitter l\'arène');
+    console.log('🚪 Quitter l\'arène');
     this.router.navigate(['/app-game']);
   }
 

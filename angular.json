@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/portfolio_website",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -20,10 +21,6 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
-<<<<<<< HEAD
-                "glob": "**/*",
-                "input": "public"
-=======
                 
                 "glob": "**/*",
                 "input": "public"
@@ -32,7 +29,6 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
->>>>>>> master
               }
             ],
             "styles": [
@@ -42,11 +38,12 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "https://mirtyl-t.github.io/Dossier-projet---portfolio---TP-DWWM/",
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "10MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -97,6 +94,9 @@
               "src/styles.css"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
