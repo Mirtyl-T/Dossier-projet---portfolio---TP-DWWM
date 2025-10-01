@@ -47,6 +47,7 @@ export class FormulaireComponent {
       const existingPlayer = await this.playerService.getPlayerByEmail(this.player.email);
       
       if (existingPlayer) {
+<<<<<<< HEAD
         // Mettre à jour le joueur existant
         await this.playerService.updatePlayer(existingPlayer.id!, {
           nom: this.player.nom,
@@ -66,13 +67,52 @@ export class FormulaireComponent {
         sessionStorage.setItem('currentPlayerId', playerId);
       }
 
+=======
+        // ✅ JOUEUR EXISTANT : Sauvegarder pour mise à jour après la partie
+        console.log('✅ Joueur existant détecté:', existingPlayer.id);
+        
+        sessionStorage.setItem('playerData', JSON.stringify({
+          nom: this.player.nom,
+          username: this.player.username,
+          email: this.player.email,
+          avis: this.player.avis,
+          isExisting: true  // ⚠️ Important pour GameEndService
+        }));
+        
+        sessionStorage.setItem('existingPlayerId', existingPlayer.id!);
+        
+        this.successMessage = 'Bienvenue de retour ! Bonne chance pour la partie.';
+        
+      } else {
+        // ✅ NOUVEAU JOUEUR : Sauvegarder pour création après la partie
+        console.log('✅ Nouveau joueur détecté');
+        
+        sessionStorage.setItem('playerData', JSON.stringify({
+          nom: this.player.nom,
+          username: this.player.username,
+          email: this.player.email,
+          avis: this.player.avis,
+          isExisting: false  // ⚠️ Important pour GameEndService
+        }));
+        
+        this.successMessage = 'Profil prêt ! Bonne chance pour votre première partie.';
+      }
+
+      console.log('✅ Données sauvegardées dans sessionStorage');
+      console.log('playerData:', sessionStorage.getItem('playerData'));
+
+>>>>>>> master
       // Rediriger vers l'arène après un court délai
       setTimeout(() => {
         this.router.navigate(['/app-game-arena']);
       }, 1500);
 
     } catch (error) {
+<<<<<<< HEAD
       console.error('Erreur lors de la sauvegarde:', error);
+=======
+      console.error('❌ Erreur lors de la préparation:', error);
+>>>>>>> master
       this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
     } finally {
       this.isLoading = false;

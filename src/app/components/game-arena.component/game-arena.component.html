@@ -131,6 +131,46 @@
                     Quitter l'arène
                 </button>
             </div>
+<<<<<<< HEAD
+=======
+            <div *ngIf="gameOver" class="game-over-actions">
+            <div class="victory-message">
+                <h2 *ngIf="winner === attackCharacter?.name">
+                 Victoire ! 
+                </h2>
+                <h2 *ngIf="winner !== attackCharacter?.name">
+                 Défaite...
+                </h2>
+                
+                <p class="final-stats">
+                Score final : <strong>{{ calculateScore(winner === attackCharacter?.name) }}</strong>
+                </p>
+                <p class="damage-stats">
+                Dégâts infligés : {{ damageDealt }} | Dégâts reçus : {{ damageReceived }}
+                </p>
+            </div>
+
+            <div class="action-buttons">
+                <button 
+                class="btn-primary" 
+                (click)="resetGame()">
+                 Rejouer
+                </button>
+                
+                <button 
+                class="btn-secondary" 
+                (click)="playAgain()">
+                 Nouveau Joueur
+                </button>
+                
+                <button 
+                class="btn-danger" 
+                (click)="exitArena()">
+                 Quitter
+                </button>
+            </div>
+            </div>
+>>>>>>> master
         </section>
     </main>
 </body>
