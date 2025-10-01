@@ -1,0 +1,173 @@
+<body>
+    <main class="arena-container">
+        <header class="arena-header">
+            <h1 class="arena-title">BATTLE ARENA</h1>
+        </header>
+
+        <section class="battle-zone">
+            <div class="personnage">
+                <!-- Personnage du joueur (GAUCHE) -->
+                <div class="player-character" *ngIf="attackCharacter">
+                    <h2>{{ attackCharacter.name }}</h2>
+                    <img [src]="attackCharacter.imageSource" [alt]="attackCharacter.name">
+                    
+                    <!-- Barre de PV -->
+                    <div class="stat-bar">
+                        <label>PV:</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill hp" 
+                                 [style.width.%]="attackCharacter.PV">
+                            </div>
+                        </div>
+                        <span>{{ attackCharacter.PV }}/100</span>
+                    </div>
+
+                    <!-- Barre d'énergie -->
+                    <div class="stat-bar">
+                        <label>Énergie:</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill energy" 
+                                 [style.width.%]="(attackCharacter.energie / 10) * 100">
+                            </div>
+                        </div>
+                        <span>{{ attackCharacter.energie }}/10</span>
+                    </div>
+
+                    <p>Défense: {{ attackCharacter.defense }}</p>
+                </div>
+
+                <!-- Personnage de l'ordinateur (DROITE) -->
+                <div class="computer-character" *ngIf="defenseCharacter">
+                    <h2>{{ defenseCharacter.name }}</h2>
+                    <img [src]="defenseCharacter.imageSource" [alt]="defenseCharacter.name">
+                    
+                    <!-- Barre de PV -->
+                    <div class="stat-bar">
+                        <label>PV:</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill hp" 
+                                 [style.width.%]="defenseCharacter.PV">
+                            </div>
+                        </div>
+                        <span>{{ defenseCharacter.PV }}/100</span>
+                    </div>
+
+                    <!-- Barre d'énergie -->
+                    <div class="stat-bar">
+                        <label>Énergie:</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill energy" 
+                                 [style.width.%]="(defenseCharacter.energie / 10) * 100">
+                            </div>
+                        </div>
+                        <span>{{ defenseCharacter.energie }}/10</span>
+                    </div>
+
+                    <p>Défense: {{ defenseCharacter.defense }}</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Boutons d'attaque -->
+        <section class="attack-panel" *ngIf="gameStarted && !gameOver">
+            <h3>Choisissez votre attaque</h3>
+            <div class="attack-buttons">
+                <button 
+                    *ngFor="let attack of availableAttacks"
+                    class="attack-btn"
+                    [class.disabled]="!canUseAttack(attack)"
+                    [disabled]="!canUseAttack(attack)"
+                    (click)="performAttack(attack)">
+                    <span class="attack-name">{{ attack.name }}</span>
+                    <span class="attack-cost"> {{ attack.energyCost }}</span>
+                    <span class="attack-damage" *ngIf="(attack.damage ?? 0) > 0">
+                         {{ attack.damage }}
+                    </span>
+                    <span class="attack-desc">{{ attack.description }}</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Journal de combat -->
+        <section class="battle-log" *ngIf="gameStarted">
+            <h3>Journal de combat</h3>
+            <div class="log-container">
+                <p *ngFor="let message of battleLog" class="log-message">
+                    {{ message }}
+                </p>
+            </div>
+        </section>
+        
+        <!-- Message de victoire -->
+        <section class="victory-message" *ngIf="gameOver">
+            <h2> {{ winner }} a remporté la victoire!</h2>
+        </section>
+
+        <!-- Panneau de contrôle -->
+        <section class="control-panel">
+            <div class="game-controls">
+                <button 
+                    class="control-btn start-battle-btn" 
+                    *ngIf="!gameStarted"
+                    (click)="startBattle()">
+                    Démarrer le combat
+                </button>
+                <button 
+                    class="control-btn pause-btn"
+                    *ngIf="gameStarted && !gameOver"
+                    (click)="pauseGame()">
+                    Pause
+                </button>
+                <button 
+                    class="control-btn reset-btn"
+                    (click)="resetGame()">
+                    Recommencer
+                </button>
+                <button 
+                    class="control-btn exit-btn"
+                    (click)="exitArena()">
+                    Quitter l'arène
+                </button>
+            </div>
+            <div *ngIf="gameOver" class="game-over-actions">
+            <div class="victory-message">
+                <h2 *ngIf="winner === attackCharacter?.name">
+                 Victoire ! 
+                </h2>
+                <h2 *ngIf="winner !== attackCharacter?.name">
+                 Défaite...
+                </h2>
+                
+                <p class="final-stats">
+                Score final : <strong>{{ calculateScore(winner === attackCharacter?.name) }}</strong>
+                </p>
+                <p class="damage-stats">
+                Dégâts infligés : {{ damageDealt }} | Dégâts reçus : {{ damageReceived }}
+                </p>
+            </div>
+
+            <div class="action-buttons">
+                <button 
+                class="btn-primary" 
+                (click)="resetGame()">
+                 Rejouer
+                </button>
+                
+                <button 
+                class="btn-secondary" 
+                (click)="playAgain()">
+                 Nouveau Joueur
+                </button>
+                
+                <button 
+                class="btn-danger" 
+                (click)="exitArena()">
+                 Quitter
+                </button>
+            </div>
+            </div>
+        </section>
+    </main>
+</body>

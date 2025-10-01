@@ -1,0 +1,76 @@
+{
+  "name": "portfolio-website",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "server": "node server/server.js",
+    "server:dev": "nodemon server/server.js",
+    "dev": "concurrently \"npm run server:dev\" \"npm start\"",
+    "start:all": "concurrently \"npm run server\" \"npm start\""
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^20.3.1",
+    "@angular/cdk": "^20.2.4",
+    "@angular/common": "^20.3.0",
+    "@angular/compiler": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "@angular/material": "^20.2.4",
+    "@angular/platform-browser": "^20.3.0",
+    "@angular/router": "^20.3.0",
+    "@types/three": "^0.180.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.3",
+    "rxjs": "~7.8.0",
+    "three": "^0.180.0",
+    "three-subdivide": "^1.1.5",
+    "three-subdivision-modifier": "^1.0.5",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.3.2",
+    "@angular/cli": "^20.3.2",
+    "@angular/compiler-cli": "^20.3.0",
+    "@types/body-parser": "^1.19.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jasmine": "~5.1.0",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^24.6.0",
+    "concurrently": "^8.2.2",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "nodemon": "^3.1.10",
+    "typescript": "~5.9.2"
+  },
+  "description": "Portfolio avec système de jeu et API MongoDB",
+  "main": "server/server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

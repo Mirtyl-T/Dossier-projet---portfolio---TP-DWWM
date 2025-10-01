@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Dashboard - Portfolio</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="container">
+        <h1> Tableau de Bord API Portfolio</h1>
+        
+        <div id="apiStatus"></div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalPlayers">0</div>
+                <div class="stat-label">Joueurs Total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalGames">0</div>
+                <div class="stat-label">Parties Jouées</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgScore">0</div>
+                <div class="stat-label">Score Moyen</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="topScore">0</div>
+                <div class="stat-label">Meilleur Score</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-success" onclick="toggleAddForm()">Ajouter un Joueur</button>
+            <button class="btn" onclick="loadPlayers()"> Rafraîchir</button>
+            <button class="btn" onclick="showLeaderboard()"> Classement</button>
+            <button class="btn btn-danger" onclick="confirmDeleteAll()"> Tout Supprimer</button>
+        </div>
+
+        <div id="addPlayerForm">
+            <h3>Nouveau Joueur</h3>
+            <div class="form-group">
+                <label>Nom:</label>
+                <input type="text" id="newNom" placeholder="Nom de famille">
+            </div>
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" id="newUsername" placeholder="Pseudo">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="newEmail" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label>Avis:</label>
+                <select id="newAvis">
+                    <option value="Pas-ouf">Pas ouf</option>
+                    <option value="sympa" selected>Sympa</option>
+                    <option value="Trop-Top">Trop Top</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="createPlayer()">Créer</button>
+            <button class="btn" onclick="toggleAddForm()">Annuler</button>
+        </div>
+
+        <div class="players-list">
+            <h2> Liste des Joueurs</h2>
+            <div id="playersList" class="loading">Chargement...</div>
+        </div>
+    </div>
+    <script src="admin.js" defer></script>
+</body>
+</html>

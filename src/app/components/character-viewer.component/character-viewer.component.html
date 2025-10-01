@@ -1,0 +1,21 @@
+<div class="viewer-container">
+    <div class="cube-zone"> 
+        <canvas #canvas></canvas>
+    </div>
+    <div class="info">
+        <h3>Mes personnages</h3>
+        
+        <div class="model-selector">
+            <button (click)="loadModel('rook')" class="model-btn">Tour</button>
+            <button (click)="loadModel('pawn')" class="model-btn">Pion</button>
+            <button (click)="loadModel('WoodenSword')" class="model-btn">Epée en bois</button>
+        </div>
+        
+        <div class="controls-info">
+            <h4>Contrôles :</h4>
+            <p><strong>Clic gauche + glisser :</strong> Tourner autour</p>
+            <p><strong>Molette :</strong> Zoom in/out</p>
+            <p><strong>Clic droit + glisser :</strong> Déplacer la vue</p>
+        </div>
+    </div>
+</div>

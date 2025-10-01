@@ -1,0 +1,81 @@
+<section>
+  <form (ngSubmit)="onSubmit($event)" #playerForm="ngForm" class="disabled">
+    
+    <!-- Messages d'erreur et de succès -->
+    <div *ngIf="errorMessage" class="message error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="message success-message">
+      {{ successMessage }}
+    </div>
+
+    <div class="Champs">
+      <label for="nom"> Nom de Famille/Last Name : </label>
+      <input 
+        type="text" 
+        name="nom" 
+        placeholder="nom-de-famille" 
+        id="nom"
+        [(ngModel)]="player.nom"
+        required
+        #nomInput="ngModel">
+      <span class="validation-error" *ngIf="nomInput.invalid && nomInput.touched">
+        Le nom est requis
+      </span>
+    </div>
+
+    <div class="Champs">
+      <label for="username"> Pseudo/Username : </label>
+      <input 
+        type="text" 
+        name="username" 
+        placeholder="username" 
+        id="username"
+        [(ngModel)]="player.username"
+        required
+        #usernameInput="ngModel">
+      <span class="validation-error" *ngIf="usernameInput.invalid && usernameInput.touched">
+        Le pseudo est requis
+      </span>
+    </div>
+
+    <div class="Champs">
+      <label for="email"> Mail : </label>
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="mail@example.com" 
+        id="email"
+        [(ngModel)]="player.email"
+        required
+        email
+        #emailInput="ngModel">
+      <span class="validation-error" *ngIf="emailInput.invalid && emailInput.touched">
+        <span *ngIf="emailInput.errors?.['required']">L'email est requis</span>
+        <span *ngIf="emailInput.errors?.['email']">Email invalide</span>
+      </span>
+    </div>
+
+    <div class="Champs">
+      <label for="avis"> Donne ton avis/Comment : </label>
+      <select 
+        name="avis" 
+        id="avis"
+        [(ngModel)]="player.avis"
+        required>
+        <option value="Pas-ouf">:( Pas ouf ...</option>
+        <option value="sympa">:| Sympa mais tu peux t'améliorer !</option>
+        <option value="Trop-Top">:D Trop Top!</option>
+      </select>
+    </div>
+
+    <button 
+      type="submit" 
+      class="btn-start"
+      [class.disabled-visible]="playerForm.invalid || isLoading"
+      [disabled]="playerForm.invalid || isLoading">
+      <span *ngIf="!isLoading">Start a Game !</span>
+      <span *ngIf="isLoading">Chargement...</span>
+    </button>
+  </form>
+</section>
