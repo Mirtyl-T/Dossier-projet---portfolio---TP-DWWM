@@ -102,7 +102,7 @@ textarea {
     width: 100%;
     padding: 15px;
     margin-top: 1rem;
-    background-image: url('/assets/images/wood-texture.webp');
+    background-image: url('/assets/images/wood-texture.png');
     background-color: #3b2a1a;
     background-size: cover;
     border: 3px solid transparent;
@@ -126,7 +126,7 @@ textarea {
     width: 100%;
     padding: 15px;
     margin-top: 1rem;
-    background-image: url('/assets/images/wood-texture.webp');
+    background-image: url('/assets/images/wood-texture.png');
     background-color: #3b2a1a;
     background-size: cover;
     border: 3px solid transparent;
