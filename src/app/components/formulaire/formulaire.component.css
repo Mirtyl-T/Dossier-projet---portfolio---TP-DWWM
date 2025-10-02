@@ -108,7 +108,7 @@ textarea {
     border: 3px solid transparent;
     font-size: 1.2rem;
     border-radius: 1rem;
-    color: #3b2a1a;
+
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -132,7 +132,6 @@ textarea {
     border: 3px solid transparent;
     font-size: 1.2rem;
     border-radius: 1rem;
-    color: #3b2a1a;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
