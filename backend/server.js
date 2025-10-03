@@ -1,32 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-<<<<<<< HEAD
-=======
 const path = require('path');
->>>>>>> master
 require('dotenv').config();
 
 const app = express();
 
-<<<<<<< HEAD
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Connexion MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
-
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log(' Connecté à MongoDB'))
-  .catch(err => {
-    console.error(' Erreur de connexion MongoDB:', err);
-    process.exit(1);
-  });
-
-// Schéma Player
-=======
 // ========== MIDDLEWARE (ORDRE IMPORTANT) ==========
 // 1. CORS en premier (AMÉLIORÉ)
 app.use(cors({
@@ -72,7 +51,6 @@ mongoose.connection.on('disconnected', () => {
 });
 
 // ========== SCHÉMA PLAYER ==========
->>>>>>> master
 const playerSchema = new mongoose.Schema({
   nom: { type: String, required: true, trim: true },
   username: { type: String, required: true, trim: true },
@@ -100,16 +78,6 @@ const playerSchema = new mongoose.Schema({
 
 const Player = mongoose.model('Player', playerSchema);
 
-<<<<<<< HEAD
-// ==================== ROUTES API ====================
-
-// Route de test
-app.get('/api/test', (req, res) => {
-  res.json({ 
-    success: true, 
-    message: 'API Portfolio fonctionnelle ',
-    timestamp: new Date()
-=======
 // ========== ROUTES API ==========
 
 // Route de test (TRÈS IMPORTANT)
@@ -120,32 +88,23 @@ app.get('/api/test', (req, res) => {
     message: 'API Portfolio fonctionnelle ✅',
     timestamp: new Date(),
     database: mongoose.connection.readyState === 1 ? 'connectée' : 'déconnectée'
->>>>>>> master
   });
 });
 
 // GET tous les joueurs
 app.get('/api/players', async (req, res) => {
   try {
-<<<<<<< HEAD
-    const players = await Player.find().sort({ score: -1 });
-=======
     console.log('📋 Récupération de tous les joueurs...');
     const players = await Player.find().sort({ score: -1 });
     console.log(`✅ ${players.length} joueurs trouvés`);
     
->>>>>>> master
     res.json({
       success: true,
       count: players.length,
       data: players
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur GET /api/players:', error);
-=======
     console.error('❌ Erreur GET /api/players:', error);
->>>>>>> master
     res.status(500).json({ 
       success: false, 
       error: error.message 
@@ -156,37 +115,24 @@ app.get('/api/players', async (req, res) => {
 // GET joueur par ID
 app.get('/api/players/:id', async (req, res) => {
   try {
-<<<<<<< HEAD
-    const player = await Player.findById(req.params.id);
-    
-    if (!player) {
-=======
     console.log('🔍 Recherche joueur ID:', req.params.id);
     const player = await Player.findById(req.params.id);
     
     if (!player) {
       console.log('❌ Joueur non trouvé');
->>>>>>> master
       return res.status(404).json({ 
         success: false, 
         message: 'Joueur non trouvé' 
       });
     }
     
-<<<<<<< HEAD
-=======
     console.log('✅ Joueur trouvé:', player.username);
->>>>>>> master
     res.json({
       success: true,
       data: player
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur GET /api/players/:id:', error);
-=======
     console.error('❌ Erreur GET /api/players/:id:', error);
->>>>>>> master
     res.status(500).json({ 
       success: false, 
       error: error.message 
@@ -197,13 +143,6 @@ app.get('/api/players/:id', async (req, res) => {
 // GET joueur par email
 app.get('/api/players/email/:email', async (req, res) => {
   try {
-<<<<<<< HEAD
-    const player = await Player.findOne({ 
-      email: req.params.email.toLowerCase() 
-    });
-    
-    if (!player) {
-=======
     const email = req.params.email.toLowerCase();
     console.log('🔍 Recherche joueur email:', email);
     
@@ -211,27 +150,19 @@ app.get('/api/players/email/:email', async (req, res) => {
     
     if (!player) {
       console.log('❌ Joueur non trouvé avec cet email');
->>>>>>> master
       return res.status(404).json({ 
         success: false, 
         message: 'Joueur non trouvé' 
       });
     }
     
-<<<<<<< HEAD
-=======
     console.log('✅ Joueur trouvé:', player.username);
->>>>>>> master
     res.json({
       success: true,
       data: player
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur GET /api/players/email/:email:', error);
-=======
     console.error('❌ Erreur GET /api/players/email/:email:', error);
->>>>>>> master
     res.status(500).json({ 
       success: false, 
       error: error.message 
@@ -242,18 +173,12 @@ app.get('/api/players/email/:email', async (req, res) => {
 // POST créer un nouveau joueur
 app.post('/api/players', async (req, res) => {
   try {
-<<<<<<< HEAD
-=======
     console.log('➕ Création nouveau joueur:', req.body);
->>>>>>> master
     const { nom, username, email, avis, selectedCharacter, score } = req.body;
     
     // Validation
     if (!nom || !username || !email) {
-<<<<<<< HEAD
-=======
       console.log('❌ Données manquantes');
->>>>>>> master
       return res.status(400).json({
         success: false,
         message: 'Nom, username et email sont requis'
@@ -263,10 +188,7 @@ app.post('/api/players', async (req, res) => {
     // Vérifier si l'email existe déjà
     const existingPlayer = await Player.findOne({ email: email.toLowerCase() });
     if (existingPlayer) {
-<<<<<<< HEAD
-=======
       console.log('❌ Email déjà utilisé');
->>>>>>> master
       return res.status(409).json({
         success: false,
         message: 'Un joueur avec cet email existe déjà'
@@ -283,10 +205,7 @@ app.post('/api/players', async (req, res) => {
     });
 
     const savedPlayer = await player.save();
-<<<<<<< HEAD
-=======
     console.log('✅ Joueur créé:', savedPlayer.username, 'ID:', savedPlayer._id);
->>>>>>> master
     
     res.status(201).json({
       success: true,
@@ -294,11 +213,7 @@ app.post('/api/players', async (req, res) => {
       data: savedPlayer
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur POST /api/players:', error);
-=======
     console.error('❌ Erreur POST /api/players:', error);
->>>>>>> master
     res.status(400).json({ 
       success: false, 
       error: error.message 
@@ -309,10 +224,7 @@ app.post('/api/players', async (req, res) => {
 // PUT mettre à jour un joueur
 app.put('/api/players/:id', async (req, res) => {
   try {
-<<<<<<< HEAD
-=======
     console.log('✏️  Mise à jour joueur:', req.params.id);
->>>>>>> master
     const updates = req.body;
     
     // Si l'email est modifié, vérifier qu'il n'existe pas déjà
@@ -345,21 +257,14 @@ app.put('/api/players/:id', async (req, res) => {
       });
     }
     
-<<<<<<< HEAD
-=======
     console.log('✅ Joueur mis à jour:', player.username);
->>>>>>> master
     res.json({
       success: true,
       message: 'Joueur mis à jour avec succès',
       data: player
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur PUT /api/players/:id:', error);
-=======
     console.error('❌ Erreur PUT /api/players/:id:', error);
->>>>>>> master
     res.status(400).json({ 
       success: false, 
       error: error.message 
@@ -370,10 +275,7 @@ app.put('/api/players/:id', async (req, res) => {
 // PATCH mettre à jour le score d'un joueur
 app.patch('/api/players/:id/score', async (req, res) => {
   try {
-<<<<<<< HEAD
-=======
     console.log('🎮 Mise à jour score:', req.params.id, req.body);
->>>>>>> master
     const { won, scoreEarned } = req.body;
     
     const player = await Player.findById(req.params.id);
@@ -396,10 +298,7 @@ app.patch('/api/players/:id/score', async (req, res) => {
     }
     
     await player.save();
-<<<<<<< HEAD
-=======
     console.log('✅ Score mis à jour:', player.username, 'Score:', player.score);
->>>>>>> master
     
     res.json({
       success: true,
@@ -407,11 +306,7 @@ app.patch('/api/players/:id/score', async (req, res) => {
       data: player
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur PATCH /api/players/:id/score:', error);
-=======
     console.error('❌ Erreur PATCH /api/players/:id/score:', error);
->>>>>>> master
     res.status(400).json({ 
       success: false, 
       error: error.message 
@@ -422,10 +317,7 @@ app.patch('/api/players/:id/score', async (req, res) => {
 // DELETE supprimer un joueur
 app.delete('/api/players/:id', async (req, res) => {
   try {
-<<<<<<< HEAD
-=======
     console.log('🗑️  Suppression joueur:', req.params.id);
->>>>>>> master
     const player = await Player.findByIdAndDelete(req.params.id);
     
     if (!player) {
@@ -435,20 +327,13 @@ app.delete('/api/players/:id', async (req, res) => {
       });
     }
     
-<<<<<<< HEAD
-=======
     console.log('✅ Joueur supprimé:', player.username);
->>>>>>> master
     res.json({
       success: true,
       message: 'Joueur supprimé avec succès'
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur DELETE /api/players/:id:', error);
-=======
     console.error('❌ Erreur DELETE /api/players/:id:', error);
->>>>>>> master
     res.status(500).json({ 
       success: false, 
       error: error.message 
@@ -460,30 +345,20 @@ app.delete('/api/players/:id', async (req, res) => {
 app.get('/api/leaderboard/top', async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
-<<<<<<< HEAD
-=======
     console.log('🏆 Récupération top', limit);
->>>>>>> master
     
     const topPlayers = await Player.find()
       .sort({ score: -1 })
       .limit(limit);
     
-<<<<<<< HEAD
-=======
     console.log(`✅ ${topPlayers.length} joueurs dans le top`);
->>>>>>> master
     res.json({
       success: true,
       count: topPlayers.length,
       data: topPlayers
     });
   } catch (error) {
-<<<<<<< HEAD
-    console.error('Erreur GET /api/leaderboard/top:', error);
-=======
     console.error('❌ Erreur GET /api/leaderboard/top:', error);
->>>>>>> master
     res.status(500).json({ 
       success: false, 
       error: error.message 
@@ -491,23 +366,17 @@ app.get('/api/leaderboard/top', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-=======
 // Route pour la page admin
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
->>>>>>> master
 // Route racine
 app.get('/', (req, res) => {
   res.json({ 
     message: '🎮 API Portfolio - Game Server',
-<<<<<<< HEAD
-=======
     status: 'online',
     database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
->>>>>>> master
     endpoints: {
       test: 'GET /api/test',
       players: 'GET /api/players',
@@ -517,44 +386,29 @@ app.get('/', (req, res) => {
       updatePlayer: 'PUT /api/players/:id',
       updateScore: 'PATCH /api/players/:id/score',
       deletePlayer: 'DELETE /api/players/:id',
-<<<<<<< HEAD
-      leaderboard: 'GET /api/leaderboard/top'
-=======
       leaderboard: 'GET /api/leaderboard/top',
       admin: 'GET /admin'
->>>>>>> master
     }
   });
 });
 
 // Gestion des erreurs 404
 app.use((req, res) => {
-<<<<<<< HEAD
-  res.status(404).json({
-    success: false,
-    message: 'Route non trouvée'
-=======
   console.log('❌ Route non trouvée:', req.method, req.path);
   res.status(404).json({
     success: false,
     message: 'Route non trouvée',
     path: req.path
->>>>>>> master
   });
 });
 
 // Démarrage du serveur
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-<<<<<<< HEAD
-  console.log(` Serveur démarré sur http://localhost:${PORT}`);
-  console.log(` Base de données: ${MONGODB_URI}`);
-=======
   console.log('\n🚀 ========================================');
   console.log(`✅ Serveur démarré sur http://localhost:${PORT}`);
   console.log(`📊 Page admin: http://localhost:${PORT}/admin`);
   console.log(`🔌 API endpoints: http://localhost:${PORT}/api`);
   console.log(`🗄️  Database: ${MONGODB_URI.replace(/\/\/.*:.*@/, '//***:***@')}`);
   console.log('🚀 ========================================\n');
->>>>>>> master
 });
