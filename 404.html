@@ -1,7 +1,17 @@
 <!doctype html>
 <html lang="en" data-beasties-container>
 <head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta charset="utf-8">
+  <meta charset="utf-8" http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: https:;
+    font-src 'self' data:;
+    connect-src 'self' http://localhost:3000;
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'self';
+  ">
   <title>PortfolioWebsite</title>
   <base href="https://mirtyl-t.github.io/Dossier-projet---portfolio---TP-DWWM/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
