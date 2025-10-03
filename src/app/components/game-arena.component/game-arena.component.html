@@ -115,12 +115,6 @@
                     Démarrer le combat
                 </button>
                 <button 
-                    class="control-btn pause-btn"
-                    *ngIf="gameStarted && !gameOver"
-                    (click)="pauseGame()">
-                    Pause
-                </button>
-                <button 
                     class="control-btn reset-btn"
                     (click)="resetGame()">
                     Recommencer
@@ -146,26 +140,6 @@
                 <p class="damage-stats">
                 Dégâts infligés : {{ damageDealt }} | Dégâts reçus : {{ damageReceived }}
                 </p>
-            </div>
-
-            <div class="action-buttons">
-                <button 
-                class="btn-primary" 
-                (click)="resetGame()">
-                 Rejouer
-                </button>
-                
-                <button 
-                class="btn-secondary" 
-                (click)="playAgain()">
-                 Nouveau Joueur
-                </button>
-                
-                <button 
-                class="btn-danger" 
-                (click)="exitArena()">
-                 Quitter
-                </button>
             </div>
             </div>
         </section>

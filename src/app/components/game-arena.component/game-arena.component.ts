@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CharacterSelectionService, Personnage } from '../../services/character-selection.service';
-<<<<<<< HEAD
-=======
 import { GameEndService } from '../../services/game-end.service';
->>>>>>> master
 import { Router } from '@angular/router';
+
+
+const woodTexture = new Image();
+woodTexture.src = '/assets/images/wood-texture.png';
+
 
 // Interface pour définir les types d'attaques
 interface Attack {
@@ -39,12 +41,6 @@ export class GameArenaComponent implements OnInit {
   battleLog: string[] = [];
   winner: string | null = null;
   
-<<<<<<< HEAD
-  // État de défense - bloque les dégâts selon la valeur de defense du personnage
-  playerIsDefending = false;
-  computerIsDefending = false;
-
-=======
   // Stats pour le score
   damageDealt = 0;
   damageReceived = 0;
@@ -57,7 +53,6 @@ export class GameArenaComponent implements OnInit {
   // Données du joueur
   playerData: any = null;
 
->>>>>>> master
   // Attaque commune
   commonAttacks: Attack[] = [
     { 
@@ -98,23 +93,14 @@ export class GameArenaComponent implements OnInit {
 
   constructor(
     private characterSelectionService: CharacterSelectionService,
-<<<<<<< HEAD
-=======
     private gameEndService: GameEndService,
->>>>>>> master
     private router: Router
   ) {}
 
   async ngOnInit() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    // Vérifier si des données joueur existent
-=======
     console.log('🏟️ Initialisation de l\'arène');
     
     // 🔥 VÉRIFIER si des données joueur existent
->>>>>>> master
     if (!this.gameEndService.hasPlayerData()) {
       console.error('❌ Aucune donnée joueur trouvée dans sessionStorage');
       console.log('📝 Contenu sessionStorage:', sessionStorage.getItem('playerData'));
@@ -128,11 +114,7 @@ export class GameArenaComponent implements OnInit {
     console.log('✅ Joueur récupéré:', this.playerData);
     console.log('👤 Pseudo:', this.playerData.username);
 
-<<<<<<< HEAD
->>>>>>> master
-=======
     // Charger les personnages
->>>>>>> master
     await this.loadSelectedCharacters();
     
     // Vérifier que les personnages sont bien chargés
@@ -153,14 +135,7 @@ export class GameArenaComponent implements OnInit {
   updateAvailableAttacks() {
     if (!this.attackCharacter) return;
     
-<<<<<<< HEAD
-    // Récupérer les attaques spécifiques du personnage
     const specificAttacks = this.characterAttacks[this.attackCharacter.name] || [];
-    
-    // Combiner avec les attaques communes
-=======
-    const specificAttacks = this.characterAttacks[this.attackCharacter.name] || [];
->>>>>>> master
     this.availableAttacks = [...specificAttacks, ...this.commonAttacks];
     
     console.log('⚔️ Attaques disponibles pour', this.attackCharacter.name, ':', this.availableAttacks);
@@ -170,19 +145,6 @@ export class GameArenaComponent implements OnInit {
    * Récupère les personnages choisis
    */
   async loadSelectedCharacters() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // Récupérer les personnages depuis le service
-    const defense = await this.characterSelectionService.getDefenseCharacter();
-    const attack = await this.characterSelectionService.getAttackCharacter();
-
-    // Créer de nouvelles instances avec les stats de base
-=======
-    const defense = await this.characterSelectionService.getDefenseCharacter();
-    const attack = await this.characterSelectionService.getAttackCharacter();
-
->>>>>>> master
-=======
     console.log('🎭 Chargement des personnages...');
     
     const defense = await this.characterSelectionService.getDefenseCharacter();
@@ -190,7 +152,6 @@ export class GameArenaComponent implements OnInit {
 
     console.log('📥 Personnages reçus du service:', { defense, attack });
 
->>>>>>> master
     if (defense) {
       const baseStats = CHARACTER_BASE_STATS[defense.name];
       this.defenseCharacter = new Personnage(
@@ -241,20 +202,13 @@ export class GameArenaComponent implements OnInit {
     this.battleLog = [];
     this.playerIsDefending = false;
     this.computerIsDefending = false;
-<<<<<<< HEAD
-=======
     
     // Reset des stats
     this.damageDealt = 0;
     this.damageReceived = 0;
     this.attacksUsed = 0;
     
-<<<<<<< HEAD
->>>>>>> master
-    this.addToBattleLog('La bataille commence!');
-=======
     this.addToBattleLog('⚔️ La bataille commence!');
->>>>>>> master
     this.addToBattleLog(`${this.attackCharacter.name} VS ${this.defenseCharacter.name}`);
     setTimeout(() => this.computerTurn(), 1000);
   }
@@ -284,35 +238,21 @@ export class GameArenaComponent implements OnInit {
   /**
    * Exécute une attaque
    */
-<<<<<<< HEAD
-  performAttack(attack: Attack) {
-    if (!this.attackCharacter || !this.defenseCharacter || !this.gameStarted) return;
-
-    // Vérifier si l'attaque est possible
-=======
   async performAttack(attack: Attack) {
     if (!this.attackCharacter || !this.defenseCharacter || !this.gameStarted) return;
 
->>>>>>> master
     if (!this.canUseAttack(attack)) {
       this.addToBattleLog(`${this.attackCharacter.name} n'a pas assez d'énergie!`);
       return;
     }
 
-<<<<<<< HEAD
-=======
     this.attacksUsed++;
 
->>>>>>> master
     // Cas spécial: Repos
     if (attack.name === 'Repos') {
       this.attackCharacter.energie = Math.min(
         this.attackCharacter.energie + 5,
-<<<<<<< HEAD
-        10 // Énergie maximum
-=======
         10
->>>>>>> master
       );
       this.addToBattleLog(`${this.attackCharacter.name} se repose et récupère de l'énergie`);
       this.playerIsDefending = false;
@@ -324,11 +264,7 @@ export class GameArenaComponent implements OnInit {
     if (attack.name === 'Defense') {
       this.attackCharacter.energie -= attack.energyCost;
       this.playerIsDefending = true;
-<<<<<<< HEAD
-      this.addToBattleLog(`${this.attackCharacter.name} prend une position défensive! (Bloque ${this.attackCharacter.defense} dégâts)`);
-=======
       this.addToBattleLog(`${this.attackCharacter.name} prend une position défensive!`);
->>>>>>> master
       setTimeout(() => this.computerTurn(), 1000);
       return;
     }
@@ -336,53 +272,27 @@ export class GameArenaComponent implements OnInit {
     // Attaques normales
     this.attackCharacter.energie -= attack.energyCost;
 
-<<<<<<< HEAD
-    // Calculer les dégâts
     let actualDamage = attack.damage || 0;
     
-    // Appliquer le blocage si l'ordinateur est en défense
-=======
-    let actualDamage = attack.damage || 0;
-    
->>>>>>> master
     if (this.computerIsDefending) {
       actualDamage = 0;
       this.addToBattleLog(`${this.defenseCharacter.name} a bloqué complètement l'attaque !`);
       this.computerIsDefending = false;
-<<<<<<< HEAD
-    }
-
-    // Appliquer les dégâts
-    this.defenseCharacter.PV = Math.max(0, this.defenseCharacter.PV - actualDamage);
-
-    // Log de l'attaque
-=======
     } else {
       this.damageDealt += actualDamage;
     }
 
     this.defenseCharacter.PV = Math.max(0, this.defenseCharacter.PV - actualDamage);
 
->>>>>>> master
     this.addToBattleLog(
       `${this.attackCharacter.name} utilise ${attack.name}! ` +
       `(-${attack.energyCost} énergie, ${actualDamage} dégâts)`
     );
 
-<<<<<<< HEAD
-    // Reset défense du joueur
-    this.playerIsDefending = false;
-
-    // Vérifier la victoire
-    if (this.checkGameOver()) return;
-
-    // Tour de l'ordinateur
-=======
     this.playerIsDefending = false;
 
     if (await this.checkGameOver()) return;
 
->>>>>>> master
     setTimeout(() => this.computerTurn(), 1000);
   }
 
@@ -400,23 +310,12 @@ export class GameArenaComponent implements OnInit {
   computerTurn() {
     if (!this.attackCharacter || !this.defenseCharacter || this.gameOver) return;
 
-<<<<<<< HEAD
-    // Récupérer les attaques disponibles pour l'ordinateur
     const computerAvailableAttacks = this.getAttacksForCharacter(this.defenseCharacter);
 
-    // L'ordinateur choisit une attaque aléatoire qu'il peut utiliser
-=======
-    const computerAvailableAttacks = this.getAttacksForCharacter(this.defenseCharacter);
-
->>>>>>> master
     const usableAttacks = computerAvailableAttacks.filter(
       attack => this.defenseCharacter!.energie >= attack.energyCost
     );
 
-<<<<<<< HEAD
-    // Si pas assez d'énergie pour autre chose que Repos
-=======
->>>>>>> master
     if (usableAttacks.length === 1 && usableAttacks[0].name === 'Repos') {
       this.defenseCharacter.energie = Math.min(this.defenseCharacter.energie + 5, 10);
       this.addToBattleLog(`${this.defenseCharacter.name} se repose`);
@@ -424,36 +323,20 @@ export class GameArenaComponent implements OnInit {
       return;
     }
 
-<<<<<<< HEAD
-    // Logique simple : 20% de chance de se défendre si énergie suffisante
-=======
->>>>>>> master
     const shouldDefend = Math.random() < 0.2 && this.defenseCharacter.energie >= 2;
     
     if (shouldDefend) {
       this.defenseCharacter.energie -= 2;
       this.computerIsDefending = true;
-<<<<<<< HEAD
-      this.addToBattleLog(`${this.defenseCharacter.name} prend une position défensive! (Bloque ${this.defenseCharacter.defense} dégâts)`);
-      return;
-    }
-
-    // Choisir une attaque offensive aléatoire
-=======
       this.addToBattleLog(`${this.defenseCharacter.name} prend une position défensive!`);
       return;
     }
 
->>>>>>> master
     const offensiveAttacks = usableAttacks.filter(
       attack => attack.name !== 'Repos' && attack.name !== 'Defense'
     );
 
     if (offensiveAttacks.length === 0) {
-<<<<<<< HEAD
-      // Pas d'attaque disponible, se reposer
-=======
->>>>>>> master
       this.defenseCharacter.energie = Math.min(this.defenseCharacter.energie + 5, 10);
       this.addToBattleLog(`${this.defenseCharacter.name} se repose`);
       this.computerIsDefending = false;
@@ -462,75 +345,31 @@ export class GameArenaComponent implements OnInit {
 
     const randomAttack = offensiveAttacks[Math.floor(Math.random() * offensiveAttacks.length)];
 
-<<<<<<< HEAD
-    // Consommer l'énergie
-    this.defenseCharacter.energie -= randomAttack.energyCost;
-
-    // Calculer les dégâts
-    let actualDamage = randomAttack.damage || 0;
-    
-    // Appliquer le blocage si le joueur est en défense
-=======
     this.defenseCharacter.energie -= randomAttack.energyCost;
 
     let actualDamage = randomAttack.damage || 0;
     
->>>>>>> master
     if (this.playerIsDefending) {
       actualDamage = 0;
       this.addToBattleLog(`${this.attackCharacter.name} a bloqué complètement l'attaque !`);
       this.playerIsDefending = false;
-<<<<<<< HEAD
-    }
-
-    // Appliquer les dégâts
-    this.attackCharacter.PV = Math.max(0, this.attackCharacter.PV - actualDamage);
-
-    // Log
-=======
     } else {
       this.damageReceived += actualDamage;
     }
 
     this.attackCharacter.PV = Math.max(0, this.attackCharacter.PV - actualDamage);
 
->>>>>>> master
     this.addToBattleLog(
       `${this.defenseCharacter.name} utilise ${randomAttack.name}! ` +
       `(-${randomAttack.energyCost} énergie, ${actualDamage} dégâts)`
     );
 
-<<<<<<< HEAD
-    // Reset défense de l'ordinateur si c'était actif
     this.computerIsDefending = false;
 
-    // Vérifier la victoire
-=======
-    this.computerIsDefending = false;
-
->>>>>>> master
     this.checkGameOver();
   }
 
   /**
-<<<<<<< HEAD
-   * Vérifie si le jeu est terminé
-   */
-  checkGameOver(): boolean {
-    if (!this.attackCharacter || !this.defenseCharacter) return false;
-
-    if (this.attackCharacter.PV <= 0) {
-      this.gameOver = true;
-      this.winner = this.defenseCharacter.name;
-      this.addToBattleLog(`${this.winner} a gagné!`);
-      return true;
-    }
-
-    if (this.defenseCharacter.PV <= 0) {
-      this.gameOver = true;
-      this.winner = this.attackCharacter.name;
-      this.addToBattleLog(`${this.winner} a gagné!`);
-=======
    * Calcule le score final
    */
   calculateScore(won: boolean): number {
@@ -617,7 +456,6 @@ export class GameArenaComponent implements OnInit {
         alert(`Erreur: ${error.message}`);
       }
 
->>>>>>> master
       return true;
     }
 
@@ -629,11 +467,7 @@ export class GameArenaComponent implements OnInit {
    */
   addToBattleLog(message: string) {
     this.battleLog.push(message);
-<<<<<<< HEAD
-    if (this.battleLog.length > 10) {
-=======
     if (this.battleLog.length > 15) {
->>>>>>> master
       this.battleLog.shift();
     }
   }
@@ -648,39 +482,20 @@ export class GameArenaComponent implements OnInit {
     this.winner = null;
     this.playerIsDefending = false;
     this.computerIsDefending = false;
-<<<<<<< HEAD
-    
-    // Recharger les personnages avec leurs stats initiales
-    await this.loadSelectedCharacters();
-    
-    // Mettre à jour les attaques disponibles
-=======
     this.damageDealt = 0;
     this.damageReceived = 0;
     this.attacksUsed = 0;
     
     await this.loadSelectedCharacters();
->>>>>>> master
     this.updateAvailableAttacks();
   }
 
-  /**
-   * Met le jeu en pause
-   */
-  pauseGame() {
-    this.addToBattleLog('⏸️ Jeu en pause');
-  }
+
 
   /**
    * Quitte l'arène
    */
   exitArena() {
-<<<<<<< HEAD
-    if (confirm('Êtes-vous sûr de vouloir quitter l\'arène?')) {
-      console.log('Quitter l\'arène');
-      this.router.navigate(['/app-game']);
-    }
-=======
     if (this.gameStarted && !this.gameOver) {
       const confirmExit = confirm(
         'La partie n\'est pas terminée. Si vous quittez maintenant, ' +
@@ -703,6 +518,5 @@ export class GameArenaComponent implements OnInit {
   playAgain() {
     this.gameEndService.clearPlayerData();
     this.router.navigate(['/formulaire']);
->>>>>>> master
   }
 }
