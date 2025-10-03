@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://dossier-projet-portfolio-tp-dwwm.onrender.com/api';
 
 async function checkApiStatus() {
     try {

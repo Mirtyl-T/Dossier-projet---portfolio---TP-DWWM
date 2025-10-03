@@ -9,7 +9,7 @@ const app = express();
 // ========== MIDDLEWARE (ORDRE IMPORTANT) ==========
 // 1. CORS en premier (AMÉLIORÉ)
 app.use(cors({
-  origin: ['http://localhost:4200', 'http://localhost:3000'],
+  origin: ['https://mirtyl-t.github.io/Dossier-projet---portfolio---TP-DWWM', 'https://dossier-projet-portfolio-tp-dwwm.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -406,9 +406,9 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('\n🚀 ========================================');
-  console.log(`✅ Serveur démarré sur http://localhost:${PORT}`);
-  console.log(`📊 Page admin: http://localhost:${PORT}/admin`);
-  console.log(`🔌 API endpoints: http://localhost:${PORT}/api`);
+  console.log(`✅ Serveur démarré sur https://dossier-projet-portfolio-tp-dwwm.onrender.com`);
+  console.log(`📊 Page admin: https://dossier-projet-portfolio-tp-dwwm.onrender.com//admin`);
+  console.log(`🔌 API endpoints: https://dossier-projet-portfolio-tp-dwwm.onrender.com//api`);
   console.log(`🗄️  Database: ${MONGODB_URI.replace(/\/\/.*:.*@/, '//***:***@')}`);
   console.log('🚀 ========================================\n');
 });
