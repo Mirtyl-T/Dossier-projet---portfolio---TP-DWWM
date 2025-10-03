@@ -5,11 +5,24 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:3000', // dev local
+  'https://mirtyl-t.github.io', // ton frontend en prod
+  'https://dossier-projet-portfolio-tp-dwwm.onrender.com' // ton backend
+];
 
 // ========== MIDDLEWARE (ORDRE IMPORTANT) ==========
 // 1. CORS en premier (AMÉLIORÉ)
 app.use(cors({
-  origin: ['https://mirtyl-t.github.io/Dossier-projet---portfolio---TP-DWWM', 'https://dossier-projet-portfolio-tp-dwwm.onrender.com'],
+  origin: function (origin, callback) {
+    // Autorise si origin est dans la liste OU si la requête vient de Postman/serveur (pas de header origin)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`❌ Origin non autorisé: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -29,7 +42,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname)));
 
 // ========== CONNEXION MONGODB ==========
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://adrienkahn98_db_user:YJSQ0Xmz32QaY8Xc@cluster0.ew5izxi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
@@ -407,8 +420,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('\n🚀 ========================================');
   console.log(`✅ Serveur démarré sur https://dossier-projet-portfolio-tp-dwwm.onrender.com`);
-  console.log(`📊 Page admin: https://dossier-projet-portfolio-tp-dwwm.onrender.com//admin`);
-  console.log(`🔌 API endpoints: https://dossier-projet-portfolio-tp-dwwm.onrender.com//api`);
+  console.log(`📊 Page admin: https://dossier-projet-portfolio-tp-dwwm.onrender.com/admin`);
+  console.log(`🔌 API endpoints: https://dossier-projet-portfolio-tp-dwwm.onrender.com/api`);
   console.log(`🗄️  Database: ${MONGODB_URI.replace(/\/\/.*:.*@/, '//***:***@')}`);
   console.log('🚀 ========================================\n');
 });
