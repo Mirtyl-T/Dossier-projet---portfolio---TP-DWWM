@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { PlayerService, Player } from '../../services/player.service';
 import { Router } from '@angular/router';
 
+
+const woodTexture = new Image();
+woodTexture.src = '/assets/images/wood-texture.png';
+
 @Component({
   selector: 'app-formulaire',
   imports: [CommonModule, FormsModule],
@@ -19,6 +23,7 @@ export class FormulaireComponent {
     avis: 'sympa',
     score: 0
   };
+
 
   isLoading = false;
   errorMessage = '';
@@ -47,27 +52,6 @@ export class FormulaireComponent {
       const existingPlayer = await this.playerService.getPlayerByEmail(this.player.email);
       
       if (existingPlayer) {
-<<<<<<< HEAD
-        // Mettre à jour le joueur existant
-        await this.playerService.updatePlayer(existingPlayer.id!, {
-          nom: this.player.nom,
-          username: this.player.username,
-          avis: this.player.avis
-        });
-        this.successMessage = 'Bienvenue de retour ! Vos informations ont été mises à jour.';
-        
-        // Stocker l'ID du joueur pour la partie
-        sessionStorage.setItem('currentPlayerId', existingPlayer.id!);
-      } else {
-        // Créer un nouveau joueur
-        const playerId = await this.playerService.addPlayer(this.player);
-        this.successMessage = 'Profil créé avec succès ! Prêt à jouer ?';
-        
-        // Stocker l'ID du joueur pour la partie
-        sessionStorage.setItem('currentPlayerId', playerId);
-      }
-
-=======
         // ✅ JOUEUR EXISTANT : Sauvegarder pour mise à jour après la partie
         console.log('✅ Joueur existant détecté:', existingPlayer.id);
         
@@ -101,18 +85,13 @@ export class FormulaireComponent {
       console.log('✅ Données sauvegardées dans sessionStorage');
       console.log('playerData:', sessionStorage.getItem('playerData'));
 
->>>>>>> master
       // Rediriger vers l'arène après un court délai
       setTimeout(() => {
         this.router.navigate(['/app-game-arena']);
       }, 1500);
 
     } catch (error) {
-<<<<<<< HEAD
-      console.error('Erreur lors de la sauvegarde:', error);
-=======
       console.error('❌ Erreur lors de la préparation:', error);
->>>>>>> master
       this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
     } finally {
       this.isLoading = false;

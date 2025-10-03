@@ -31,7 +31,7 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class PlayerService {
-  private apiUrl = environment.apiUrl || 'http://localhost:3000/api';
+  private apiUrl = environment.apiUrl || 'https://dossier-projet-portfolio-tp-dwwm.onrender.com/api';
   private playersEndpoint = `${this.apiUrl}/players`;
 
   private httpOptions = {
