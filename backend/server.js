@@ -186,7 +186,7 @@ app.get('/api/players/email/:email', async (req, res) => {
 // POST créer un nouveau joueur
 app.post('/api/players', async (req, res) => {
   try {
-    console.log('➕ Création nouveau joueur:', req.body);
+    console.log('➕ Création/Mise à jour joueur:', req.body);
     const { nom, username, email, avis, selectedCharacter, score } = req.body;
     
     // Validation
@@ -198,16 +198,36 @@ app.post('/api/players', async (req, res) => {
       });
     }
 
-    // Vérifier si l'email existe déjà
+    // Chercher un joueur existant avec cet email
     const existingPlayer = await Player.findOne({ email: email.toLowerCase() });
+    
     if (existingPlayer) {
-      console.log('❌ Email déjà utilisé');
-      return res.status(409).json({
-        success: false,
-        message: 'Un joueur avec cet email existe déjà'
+      // MISE À JOUR du joueur existant
+      console.log('🔄 Joueur existant trouvé, mise à jour...');
+      
+      // Mettre à jour seulement les champs fournis
+      if (nom) existingPlayer.nom = nom;
+      if (username) existingPlayer.username = username;
+      if (avis) existingPlayer.avis = avis;
+      if (selectedCharacter) existingPlayer.selectedCharacter = selectedCharacter;
+      
+      // Ajouter le score au lieu de le remplacer
+      if (score) {
+        existingPlayer.score = (existingPlayer.score || 0) + score;
+      }
+      
+      const updatedPlayer = await existingPlayer.save();
+      console.log('✅ Joueur mis à jour:', updatedPlayer.username, 'ID:', updatedPlayer._id);
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Joueur mis à jour avec succès',
+        data: updatedPlayer,
+        isNew: false
       });
     }
 
+    // CRÉATION d'un nouveau joueur
     const player = new Player({
       nom,
       username,
@@ -218,12 +238,13 @@ app.post('/api/players', async (req, res) => {
     });
 
     const savedPlayer = await player.save();
-    console.log('✅ Joueur créé:', savedPlayer.username, 'ID:', savedPlayer._id);
+    console.log('✅ Nouveau joueur créé:', savedPlayer.username, 'ID:', savedPlayer._id);
     
     res.status(201).json({
       success: true,
       message: 'Joueur créé avec succès',
-      data: savedPlayer
+      data: savedPlayer,
+      isNew: true
     });
   } catch (error) {
     console.error('❌ Erreur POST /api/players:', error);
